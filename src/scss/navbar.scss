@@ -1,0 +1,196 @@
+:root{
+    --navBlockSize: 420.7em;
+}
+[dir="rtl"]{
+    --navBlockSize: 495.7em;
+}
+
+nav{
+    background: hsla(0, 0%, var(--whiteL), .85);
+    position: sticky;
+    inset-block-start: 0;
+    transition: all .25s;
+    &.scrolled{
+        background-color: var(--white);
+    }
+    .container{
+        @media ($medScreens) {
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav-head{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .logo{
+                color: var(--primary-color);
+            }
+            button{
+                @extend %iconPrimaryButton;
+                @media ($medScreens) {
+                    display: none;
+                }
+            }
+        }
+        .nav-foot{
+            display: grid;
+            justify-items: center;
+            gap: 1.5em;
+            block-size: 0;
+            transition: all .25s;
+            overflow: hidden;
+            @media ($medScreens) {
+                overflow: visible;
+            }
+            &.showed{
+                block-size: calc(var(--navBlockSize)/18);
+                padding-block-end: 1em;
+            }
+            @media ($medScreens) {
+                block-size: auto !important;
+                padding: 0 !important;
+                display: flex;
+            }
+            .links{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                @media ($medScreens) {
+                    flex-direction: row;
+                    gap: 1em;
+                }
+                .link{
+                    text-decoration: initial;
+                    color: inherit;
+                    transition: all .25s;
+                    padding-block: 1em;
+                    display: grid;
+                    position: relative;
+                    &.has-ch{
+                        cursor: pointer;
+                        svg{
+                            display: none;
+                        }
+                        @media ($medScreens) {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: .25em;
+                            svg{
+                                display: initial;
+                            }
+                            &:hover{
+                                .dropdown{
+                                    display: grid;
+                                }
+                            }
+                        }
+                    }
+                    &:not(.primary){
+                        &::before{
+                            content: "";
+                            display: block;
+                            inline-size: 0%;
+                            block-size: calc(3em/18);
+                            background-color: var(--primary-color);
+                            border-radius: 1em;
+                            transition: all .25s;
+                            justify-self: center;
+                            position: absolute;
+                            inset-block-start: 0;
+                        }
+                        &:hover, &.active{
+                            &::before{
+                                width: 100%;
+                            }
+                        }
+                    }
+                    &.primary{
+                        @extend %textPrimaryButton;
+                    }
+                }
+                .dropdown{
+                    display: none;
+                    @media ($medScreens) {
+                        border-radius: .6em;
+                        background-color: var(--white);
+                        grid-template-columns: 20em 18em;
+                        position: absolute;
+                        inset-block-start: calc(100% + 1em);
+                        left: 50%;
+                        transform: translateX(-50%);
+                        filter: drop-shadow(0 0 .4em hsla(0, 0%, var(--blackL), .15));
+                        &::before{
+                            content: "";
+                            position: absolute;
+                            border-style: solid;
+                            border-color: transparent;
+                            border-block-width: .525em;
+                            border-inline-width: 1em;
+                            border-block-end-color: var(--white);
+                            inset-block-start: -1em;
+                            inset-inline-start: 17em;
+                        }
+                        &>div:first-child{
+                            padding: 1.5em;
+                            border-start-start-radius: .6em;
+                            border-end-start-radius: .6em;
+                            h5{
+                                color: var(--gray);
+                                font-weight: 600;
+                                margin-top: 0;
+                            }
+                            .impact{
+                                display: flex;
+                                gap: 1em;
+                                align-items: center;
+                                .image{
+                                    inline-size: 5em;
+                                }
+                                p, h6{
+                                    margin: 0;
+                                }
+                                h6{
+                                    text-transform: capitalize;
+                                    font-size: 1rem;
+                                    font-weight: 600;
+                                }
+                                p{
+                                    font-size: .9rem;
+                                    color: var(--gray);
+                                }
+                                &:not(:last-child){
+                                    margin-block-end: 1.5em;
+                                }
+                            }
+                        }
+                        &>div:last-child{
+                            border-start-end-radius: .6em;
+                            border-end-end-radius: .6em;
+                            padding: 1.5em;
+                            background-color: #008B94;
+                            color: var(--white);
+                            display: grid;
+                            align-content: center;
+                            text-align: center;
+                            span:first-child{
+                                font-size: 2.25rem;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+            .switchers{
+                display: flex;
+                gap: .75em;
+                @media ($medScreens) {
+                    align-items: center;
+                }
+                button{
+                    @extend %iconPrimaryButton;
+                }
+            }
+        }
+    }
+}

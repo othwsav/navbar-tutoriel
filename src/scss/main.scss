@@ -1,14 +1,108 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&family=Noto+Kufi+Arabic:wght@400;600;900&display=swap');
 
+$xsmScreens: 'min-width: 576px';
+$smScreens: 'min-width: 768px';
+$medScreens: 'min-width: 992px';
+$lgScreens: 'min-width: 1200px';
+$xlgScreens: 'min-width: 1400px';
 
 :root{
+    --primary-color: hsl(129, 45%, 52%);
+    --primary-colorH: 129;
+    --primary-colorS: 45%;
+    --white: hsl(0, 0%, 95%);
+    --whiteL: 95%;
+    --black: hsl(0, 0%, 5%);
+    --blackL: 5%;
+    --gray: hsl(0, 0%, 35%);
+
     --latin-family: 'Montserrat', sans-serif;
     --arabic-family: 'Noto Kufi Arabic', sans-serif;
+    --default-font: var(--latin-family);
 
     font-size: 18px;
 }
 
-body{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+[dir="rtl"]{
+    --default-font: var(--arabic-family);
 }
+
+[data-theme="dark"]{
+    --white: hsl(0, 0%, 10%);
+    --whiteL: 10%;
+    --black: hsl(0, 0%, 90%);
+    --blackL: 90%;
+    --gray: hsl(0, 0%, 65%);
+}
+
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--default-font);
+    font-weight: 400;
+    background-color: var(--white);
+    color: var(--black);
+    background: url("../images/header.jpg") center/cover;
+
+}
+
+img{
+    max-inline-size: 100%;
+}
+
+.container{
+    width: 100%;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+    margin-right: auto;
+    margin-left: auto;
+    @media ($xsmScreens) {
+        max-width: 540px;
+    }
+    @media ($smScreens) {
+        max-width: 720px;
+    }
+    @media ($medScreens) {
+        max-width: 960px;
+    }
+    @media ($lgScreens) {
+        max-width: 1140px;
+    }
+    @media ($xlgScreens) {
+        max-width: 1320px;
+    }
+}
+
+::selection{
+    background-color: hsl(var(--primary-colorH), var(--primary-colorS), 35%);
+    color: var(--white);
+}
+
+%primaryButton{
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-radius: .25em;
+    cursor: pointer;
+    transition: all .25s;
+    display: grid;
+    &:hover{
+        background: hsl(var(--primary-colorH), var(--primary-colorS), 60%);
+    }
+}
+%iconPrimaryButton{
+    @extend %primaryButton;
+    font-size: 1rem;
+    block-size: 2.65em;
+    inline-size: 2.65em;
+    place-items: center;
+}
+%textPrimaryButton{
+    @extend %primaryButton;
+    padding: .5em .75em;
+}
+
+@import './navbar.scss';
+@import './header.scss';
